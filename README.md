@@ -26,7 +26,7 @@ class Communication {
     //...
 }
 ```
-How would you implement construction of such an object that? Since there is one field required we need to set
+How would you implement construction of such an object ? Since there is one field required we need to set
 it in constructor:
 ```java
 class Communication {
@@ -108,7 +108,7 @@ grows, code tends to become less readable and harder to maintain.
 It is also difficult for a client to construct such an object - too many
 possibilities to do it in a wrong way. Which constructor should I use? If I
 use constructor with a single Consumer argument, does it automatically
-set defaults for other fields or I need to call setters?
+set defaults for other fields or do I need to call setters?
 
 ## Introducing Builder
 Fortunately, we can do better employing builder pattern:
@@ -167,7 +167,7 @@ class Communication {
 ```
 Constructor became private making instantiation of Communication class possible through `Builder` only.
 At the same time, all fields became `final` making object immutable. Notice, that in `Builder` we pass
-required arguments to constructor ensuring the are set. All the reset fields are set through setters
+required arguments to constructor ensuring that they are set. All the reset fields are set through setters
 following [Fluent Interface](https://martinfowler.com/bliki/FluentInterface.html) idiom.
 
 Check out possible client code. It is pretty straightforward, isn't it?
@@ -236,7 +236,7 @@ class Communication {
 ```
 Probably, your good half was screaming "What a shame! It's a bad practice", while the bad half
 whispering "It's OK, just quick and dirty, go ahead!" =) It is bad because constructor should always happen, it is
-just for initialization. All complex construction logic you can incapsulate into builder:
+just for initialization. All complex construction logic can be incapsulate into builder:
 ```java
 class Communication {
     private final Reader reader;
@@ -328,7 +328,7 @@ public abstract class MinimalCommunication implements Communication {
     }
 }
 ```
-Nothing special so far, except *abstract* `Builder`. That means this `Builder` can not
+Nothing special so far, except *abstract* `Builder`. That means this `Builder` cannot
 construct `Communication` object but can be used to set `name` and `consumer` which is exactly
 our intention.
 
@@ -381,7 +381,7 @@ InMemoryCommunication.Builder builder = new InMemoryCommunication.Builder()
 Since `consumer()` is defined in superclass it returns `Builder` of the superclass which
 has no `memoryBufferSize()` defined, so the consequent call to `memoryBufferSize()`
 will not compile. By the same reason `name()` returns `Builder` of superclass which has *abstract* `build()`
-and can not be called.
+and cannot be called.
 
 Meanwhile, we continue to grow our hierarchy and are about to implement network-based communication with some
 standard properties like `host` and `port`:
@@ -473,7 +473,7 @@ protected TextBasedCommunication(Builder builder) {
 Here we implicitly assume that construction of the object is done through constructor only,
 and no additional `init()` or setters are needed to be called. Sounds dodgy? But if you give
 it a second thought you will find it ok because:
-* it is normarl to call `super()` when you override is. For instance, if you override `void foo();`
+* it is normal to call `super()` when you override is. For instance, if you override `void foo();`
 then probably you want to call `super.foo()` in the new method:
 ```java
     @Override
@@ -482,11 +482,11 @@ then probably you want to call `super.foo()` in the new method:
     }
 ```
 because client code expects certain behavior of original method in the new method.
-* it is just normal to construct objects by calling its constructor without any additional tweaks.
+* it is just normal to construct objects by calling their constructor without any additional tweaks.
 
 To conclude, if a class you are designing requires more than N parameters (there is no exact number,
 we use 3) to be supplied you might consider benefits of Builder pattern:
 * Cleaner object construction and dealing with inheretance hierarchies
-* Moving parameters validataion out of constructor and, at the same time, making it a necessary
+* Moving parameters validation out of constructor and, at the same time, making it a necessary
 step for object construction.
 

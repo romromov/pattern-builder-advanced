@@ -479,6 +479,7 @@ then probably you want to call `super.foo()` in the new method:
     @Override
     void foo() {
         super.foo();
+        //...
     }
 ```
 because client code expects certain behavior of original method in the new method.

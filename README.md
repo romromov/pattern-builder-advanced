@@ -490,5 +490,6 @@ we use 3) to be supplied you might consider benefits of Builder pattern:
 * Cleaner object construction and dealing with inheretance hierarchies
 * Moving parameters validation out of constructor and, at the same time, making it a necessary
 step for object construction.
+
 The possible drawback is that the pattern is not obvious and idiomatic. One need to get used to it in order to achieve performance.
 

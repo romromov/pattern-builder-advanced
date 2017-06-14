@@ -484,10 +484,11 @@ then probably you want to call `super.foo()` in the new method:
 ```
 because client code expects certain behavior of original method in the new method.
 * it is just normal to construct objects by calling their constructor without any additional tweaks.
-
+# Summary
 To conclude, if a class you are designing requires more than N parameters (there is no exact number,
 we use 3) to be supplied you might consider benefits of Builder pattern:
 * Cleaner object construction and dealing with inheretance hierarchies
 * Moving parameters validation out of constructor and, at the same time, making it a necessary
 step for object construction.
+The possible drawback is that the pattern is not obvious and idiomatic. One need to get used to it in order to achieve performance.
 
